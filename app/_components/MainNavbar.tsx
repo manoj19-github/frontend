@@ -25,7 +25,7 @@ const MainNavbar: FC<MainNavbarProps> = (): JSX.Element => {
           Gurukul Shop
         </p>
         <p className="hover:underline transition-all ease-in-out duration-200 cursor-pointer underline-offset-2">
-          Events & Seminar
+          About Us
         </p>
         <p className="hover:underline transition-all ease-in-out duration-200 cursor-pointer underline-offset-2">
           Find your Job
