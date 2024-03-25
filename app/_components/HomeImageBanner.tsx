@@ -5,7 +5,13 @@ import SectionTitle from "@/components/SectionTitle";
 interface HomeImageBannerProps {}
 const HomeImageBanner: FC<HomeImageBannerProps> = (): JSX.Element => {
   return (
-    <div className="w-full flex items-center justify-between  rea px-2  mt-2">
+    <div
+      className="w-full flex items-center justify-between  rea px-2  "
+      style={{
+        backgroundImage: `url("/backgroundImage2.jpg")`,
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="w-1/2 px-4">
         <div>
           <SectionTitle title="Gateway of Lifelong Learning" />

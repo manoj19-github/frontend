@@ -5,7 +5,10 @@ import MainNavbar from "./_components/MainNavbar";
 import CourseNavbar from "./_components/CourseNavbar";
 import HomeImageBanner from "./_components/HomeImageBanner";
 import TrustedCompanies from "./_components/TrustedCompanies";
+import CourseCategorySection from "./_components/CourseCategorySection";
 import CourseSection from "./_components/CourseSection";
+import AdvertisementSection from "./_components/AdvertisementSection";
+import EventsContainer from "./_components/EventsContainer";
 
 export default function Home() {
   return (
@@ -15,7 +18,10 @@ export default function Home() {
       <CourseNavbar />
       <HomeImageBanner />
       <TrustedCompanies />
+      <CourseCategorySection />
       <CourseSection />
+      <AdvertisementSection />
+      <EventsContainer />
     </main>
   );
 }
