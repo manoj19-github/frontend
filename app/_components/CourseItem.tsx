@@ -28,7 +28,7 @@ const CourseItem: FC<CourseItemProps> = ({
 }): JSX.Element => {
   const [starRating, setStarRating] = useState<number>(0);
   return (
-    <div className="w-full h-full overflow-hidden group cursor-pointer border  rounded-sm hover:border-transparent transition-all duration-300 p-2">
+    <div className="w-full h-full overflow-hidden group cursor-pointer border  rounded-sm hover:border-transparent transition-all duration-300 p-3">
       <div className="w-full h-48 relative ">
         <Image
           src={"/course1.jpg"}

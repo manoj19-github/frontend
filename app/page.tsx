@@ -9,6 +9,11 @@ import CourseCategorySection from "./_components/CourseCategorySection";
 import CourseSection from "./_components/CourseSection";
 import AdvertisementSection from "./_components/AdvertisementSection";
 import EventsContainer from "./_components/EventsContainer";
+import AdvertiseStat from "../public/AdvertiseStat";
+import InstructorsProfile from "./_components/InstructorsProfile";
+import BlogSectionContainer from "./_components/BlogSection";
+import JobPortalAdvertise from "./_components/JobPortalAdvertise";
+import ViewCourseAdvertiseSection from "./_components/ViewCourseAdvertiseSection";
 
 export default function Home() {
   return (
@@ -22,6 +27,11 @@ export default function Home() {
       <CourseSection />
       <AdvertisementSection />
       <EventsContainer />
+      <AdvertiseStat />
+      <InstructorsProfile />
+      <JobPortalAdvertise />
+      <BlogSectionContainer />
+      <ViewCourseAdvertiseSection />
     </main>
   );
 }

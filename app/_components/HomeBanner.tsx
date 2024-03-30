@@ -7,16 +7,17 @@ const HomeBanner: FC<HomeBannerProps> = (): JSX.Element => {
     <div className="w-[96.6vw] h-auto grid grid-cols-3">
       <div className="col-span-1 p-5 flex flex-col gap-y-1 ">
         <Item imageURL={"/online_course.png"} title={"Online Course"} />
-        <Item imageURL={"/distance_learning.png"} title={"Distance Learning"} />
+        {/* <Item imageURL={"/distance_learning.png"} title={"Distance Learning"} /> */}
         <Item imageURL={"/motivational.png"} title={"Motivational Course"} />
         <Item imageURL={"/language_academy.png"} title={"Language Academy"} />
         <Item imageURL={"/buisness_coach.png"} title={"School Of  Buisness"} />
+        <Item imageURL={"/daliy_quiz.png"} title={"Daliy Quiz Contest"} />
       </div>
       <div className="col-span-1 p-5 flex flex-col gap-y-1 ">
         <Item imageURL={"/kitchen_course.png"} title={"Kitchen Course"} />
         <Item imageURL={"/gym_course.png"} title={"Gym Instructors"} />
         <Item imageURL={"/gurukul_news.png"} title={"Gurukul News & Blogs"} />
-        <Item imageURL={"/daliy_quiz.png"} title={"Daliy Quiz Contest"} />
+
         <Item imageURL={"/live_classes.png"} title={"Online Live Classes"} />
       </div>
       <div className="col-span-1 h-full bg-banner flex  p-3  rounded-sm space-x-2">
