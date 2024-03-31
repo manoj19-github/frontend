@@ -31,7 +31,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        banner: "#8313A4",
+        banner: "#553cde",
         btnColor: "#eeebff",
         primary: {
           DEFAULT: "hsl(var(--primary))",

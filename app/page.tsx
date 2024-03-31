@@ -14,13 +14,11 @@ import InstructorsProfile from "./_components/InstructorsProfile";
 import BlogSectionContainer from "./_components/BlogSection";
 import JobPortalAdvertise from "./_components/JobPortalAdvertise";
 import ViewCourseAdvertiseSection from "./_components/ViewCourseAdvertiseSection";
+import HomeFooter from "./_components/HomeFooter";
 
 export default function Home() {
   return (
     <main className="m-0 p-0">
-      <TopNavbar />
-      <MainNavbar />
-      <CourseNavbar />
       <HomeImageBanner />
       <TrustedCompanies />
       <CourseCategorySection />
