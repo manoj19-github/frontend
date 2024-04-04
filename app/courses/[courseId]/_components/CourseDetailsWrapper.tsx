@@ -6,31 +6,13 @@ import CourseDetailsTabs from "./CourseDetailsTabs";
 import useMounted from "@/_hooks/useMounted";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import CourseInfoSection from "./CourseInfoSection";
+import CourseContent from "./CourseContent";
+import CourseInstructors from "./CourseInstructors";
+import CourseReviewWrapper from "./CourseReviewWrapper";
 
 const CourseDetailsWrapper = () => {
   const isMounted = useMounted();
   const [selectedTab, setSelectedTab] = useState<number>(0);
-  const CarousalRef = useRef<any>();
-  const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 1,
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
   const tabContentVariants: Variants = {
     initial: {
       y: 40,
@@ -55,6 +37,7 @@ const CourseDetailsWrapper = () => {
         selectedSubject={selectedTab}
         onChangeHandler={onChangeHandler}
       />
+      <div className="w-[90%] mx-auto  h-[0.5px] bg-gray-200 mt-10" />
       <AnimatePresence mode="wait">
         <motion.div
           key={selectedTab || "empty"}
@@ -63,11 +46,21 @@ const CourseDetailsWrapper = () => {
           animate="enter"
           exit="exit"
           transition={{
-            duration: 1,
+            duration: 0.8,
           }}
         >
           <div className="lg:px-5 w-full">
-            <CourseInfoSection />
+            {selectedTab === 0 ? (
+              <CourseInfoSection />
+            ) : selectedTab === 1 ? (
+              <CourseContent />
+            ) : selectedTab === 2 ? (
+              <CourseInstructors />
+            ) : selectedTab === 3 ? (
+              <CourseReviewWrapper />
+            ) : (
+              <></>
+            )}
           </div>
         </motion.div>
       </AnimatePresence>

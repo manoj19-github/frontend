@@ -25,14 +25,14 @@ const CourseDetailsTabs: FC<CourseDetailsTabsProps> = ({
 
   return (
     <div>
-      <div className="lg:mt-10 lg:mx-20 flex items-center justify-between">
+      <div className="lg:mt-10 lg:mx-20 flex items-center gap-x-4">
         {["Course Information", "Course content", "Instructor", "Review"].map(
           (self, index) => (
             <div
-              className={`px-3 py-2 rounded-md cursor-pointer ${
+              className={`px-4 rounded-md   cursor-pointer border py-2  ${
                 selectedSubject === index
-                  ? `bg-banner text-white`
-                  : `border border-banner text-banner`
+                  ? `border-transparent bg-banner text-white`
+                  : ``
               }`}
               key={index}
               onClick={() => onChangeHandler(index)}
