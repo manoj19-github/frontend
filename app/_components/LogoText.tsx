@@ -1,42 +1,47 @@
-"use client";
 import React, { FC } from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import useAppTheme from "@/_hooks/useAppTheme";
-import useMounted from "@/_hooks/useMounted";
+import { twMerge } from "tailwind-merge";
 
-interface LogoProps {}
-const Logo: FC<LogoProps> = ({}): JSX.Element => {
-  const { currTheme, toggleTheme, getCurrentTheme } = useAppTheme();
-  const { setTheme, theme } = useTheme();
-  console.log("theme: ", theme);
-  console.log("currTheme: ", currTheme);
-  const isMounted = useMounted();
-  if (!isMounted) return <></>;
+interface LogoProps {
+  logoImageStyle?: string;
+  logoTextStyle?: string;
+  noText?: boolean;
+}
+const Logo: FC<LogoProps> = ({
+  logoImageStyle,
+  logoTextStyle,
+  noText,
+}): JSX.Element => {
   return (
     <div className=" relative flex items-center space-x-2 py-1  ">
       <div
-        className={`relative  h-[65px]
-           w-[80px]`}
+        className={twMerge(
+          `relative  h-[65px]
+           w-[80px]`,
+          logoImageStyle
+        )}
       >
         <Image
           fill
           alt="logo"
-          src={
-            ["light", null].includes(
-              JSON.parse(
-                JSON.stringify(window.localStorage.getItem("gurukul-themes"))
-              )
-            )
-              ? "/logo2.jpg"
-              : "/logo_dark.png"
-          }
+          src={"/logo2.jpg"}
           className="w-full h-full absolute"
         />
       </div>
-      <p className="  lg:text-[25px] protest-riot-regular protest-riot-regular heading_fonts text-banner">
-        Gurukul
-      </p>
+      {!noText ? (
+        <>
+          <p
+            className={twMerge(
+              ` lg:text-[25px] protest-riot-regular protest-riot-regular heading_fonts text-banner`,
+              logoTextStyle
+            )}
+          >
+            Gurukul
+          </p>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

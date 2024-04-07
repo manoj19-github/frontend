@@ -9,6 +9,8 @@ import CourseInfoSection from "./CourseInfoSection";
 import CourseContent from "./CourseContent";
 import CourseInstructors from "./CourseInstructors";
 import CourseReviewWrapper from "./CourseReviewWrapper";
+import OtherCourseOfInstructor from "./OtherCourseOfInstructor";
+import RelatedCourseSection from "./RelatedCourseSection";
 
 const CourseDetailsWrapper = () => {
   const isMounted = useMounted();
@@ -64,6 +66,12 @@ const CourseDetailsWrapper = () => {
           </div>
         </motion.div>
       </AnimatePresence>
+      <div className="my-3 ">
+        <h1 className="mt-24 mb-5 text-2xl font-bold lg:ml-8 underline underline-offset-2">
+          More Course by Manoj Santra
+        </h1>
+        <OtherCourseOfInstructor />
+      </div>
     </div>
   );
 };

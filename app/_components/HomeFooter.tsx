@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 interface HomeFooterProps {}
 const HomeFooter: FC<HomeFooterProps> = () => {
   return (
-    <div className="w-full lg:px-10 lg:mt-10 lg:mb-5">
+    <div className="w-full lg:px-10 relative lg:mb-5">
       <div className="flex flex-row items-center justify-between gap-x-4">
         <div className="w-[20%]">
           <Logo />

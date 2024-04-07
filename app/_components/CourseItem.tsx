@@ -21,14 +21,20 @@ import {
 interface CourseItemProps {
   courseId: number;
   isInstitute?: boolean;
+  minWidth: string;
 }
 const CourseItem: FC<CourseItemProps> = ({
   courseId,
   isInstitute,
+  minWidth,
 }): JSX.Element => {
   const [starRating, setStarRating] = useState<number>(0);
   return (
-    <div className="w-full h-full overflow-hidden group cursor-pointer border  rounded-sm hover:border-transparent transition-all duration-300 p-3">
+    <div
+      className={`w-full ${
+        minWidth ? `${minWidth}` : ``
+      } h-full overflow-hidden group cursor-pointer border  rounded-sm hover:border-transparent transition-all duration-300 p-3`}
+    >
       <div className="w-full h-48 relative ">
         <Image
           src={"/course1.jpg"}
