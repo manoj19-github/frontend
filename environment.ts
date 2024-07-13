@@ -145,3 +145,12 @@ export const INSTRUCTORSIDEBARMENUS3: Array<InstructorSideBarTypes> = [
     navigateUrl: "/logout",
   },
 ];
+
+export const BASEURL = `http://localhost:5000`;
+export const urlsConfig = {
+  version: "1.0",
+  urls: {
+    getAllUserRole: `/master/get-all-role`,
+    userLogin: `/user/login`,
+  },
+};

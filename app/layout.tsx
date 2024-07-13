@@ -6,6 +6,7 @@ import CourseNavbar from "./_components/CourseNavbar";
 import MainNavbar from "./_components/MainNavbar";
 import TopNavbar from "./_components/TopNavbar";
 import HomeFooter from "./_components/HomeFooter";
+import ToasterProvider from "./_providers/ToasterProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ToasterProvider />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
