@@ -17,10 +17,17 @@ export interface LoginUserInterface {
   enabled: boolean;
   createdAt: string;
   updatedAt: string;
+  curr_role: Currrole;
   __v: number;
 }
 
 export interface JWTTokenInterface {
   accessToken: string;
   refreshToken: string;
+}
+
+export interface Currrole {
+  _id: string;
+  role_name: string;
+  access_control: any[];
 }

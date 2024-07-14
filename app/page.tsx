@@ -16,8 +16,13 @@ import JobPortalAdvertise from "./_components/JobPortalAdvertise";
 import ViewCourseAdvertiseSection from "./_components/ViewCourseAdvertiseSection";
 import HomeFooter from "./_components/HomeFooter";
 import { Fragment } from "react";
+import { getJWTAccessToken, getSession } from "@/_config/nextAuth.config";
 
-export default function Home() {
+export default async function Home() {
+  const userDetails = await getSession();
+  const jwtAccessToken = await getJWTAccessToken();
+  console.log("jwtAccessToken: ", jwtAccessToken);
+  console.log("userDetails: session in page ", userDetails);
   return (
     <Fragment>
       <TopNavbar />

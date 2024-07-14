@@ -3,6 +3,14 @@ import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios";
 import { useLoginDetails } from "@/_store/useLoginDetails";
 import { JWTTokenInterface } from "@/_models/userLogin.models";
 import { BASEURL } from "@/environment";
+import {
+  getJWTAccessToken,
+  getJWTRefreshToken,
+  JWTEncryptMethod,
+  logoutUser,
+} from "@/_config/nextAuth.config";
+import useSetCookie from "@/app/_utils/useSetCookie";
+
 // import {
 //   ApiCallErrorAction,
 //   SetTokenAction,
@@ -21,7 +29,7 @@ interface RestServiceInterface {
 }
 
 const useRestService = (): RestServiceInterface => {
-  const { logoutUser, token, user, updateJWTToken } = useLoginDetails();
+  const setCookie = useSetCookie();
 
   class RestService implements RestServiceInterface {
     private client: AxiosInstance;
@@ -30,8 +38,11 @@ const useRestService = (): RestServiceInterface => {
       this.client.interceptors.request.use(
         async (config) => {
           const token = await getToken();
-          if (token && !!config.headers) {
-            config.headers["Authorization"] = `Bearer ${token}`;
+          if (token && token?.accessToken && !!config.headers) {
+            config.headers["Authorization"] = `Bearer ${token.accessToken}`;
+          }
+          if (token && token?.refreshToken && !!config.headers) {
+            config.headers["refreshJWTToken"] = `Bearer ${token.refreshToken}`;
           }
           return config;
         },
@@ -46,7 +57,10 @@ const useRestService = (): RestServiceInterface => {
             await setToken(response?.data?.token);
             this.client.defaults.headers.common[
               "Authorization"
-            ] = `Bearer ${response?.data?.token}`;
+            ] = `Bearer ${response?.data?.token.accessToken}`;
+            this.client.defaults.headers.common[
+              "refreshJWTToken"
+            ] = `Bearer ${response?.data?.token.refreshToken}`;
           }
           return response;
         },
@@ -63,10 +77,14 @@ const useRestService = (): RestServiceInterface => {
           ) {
             originalRequest._retry = true;
             console.log("error response token : ", error.response);
-            if (error?.response?.data?.Token) {
-              await setToken(error?.response?.data?.Token);
-              this.client.defaults.headers.common["Authorization"] =
-                error.response?.data?.Token;
+            if (error?.response?.data?.token) {
+              await setToken(error.response?.data?.token);
+              this.client.defaults.headers.common[
+                "Authorization"
+              ] = `Bearer ${error.response?.data?.token.accessToken}`;
+              this.client.defaults.headers.common[
+                "refreshJWTToken"
+              ] = `Bearer ${error.response?.data?.token.refreshToken}`;
               await new Promise((resolve) => setTimeout(resolve, 500));
               return this.client(originalRequest);
             }
@@ -98,13 +116,39 @@ const useRestService = (): RestServiceInterface => {
     logoutUser();
   };
   // ***********  get logged in user jwt token  *********//
-  const getToken = async (): Promise<string | null | undefined> => {
-    return token?.accessToken;
+  const getToken = async (): Promise<any> => {
+    const payloadForAccessToken: any = await getJWTAccessToken();
+    const payloadForRefreshToken: any = await getJWTRefreshToken();
+    const payload: any = {};
+    if (!!payloadForAccessToken && payloadForAccessToken?.accessToken)
+      payload["accessToken"] = payloadForAccessToken.accessToken;
+    if (!!payloadForRefreshToken && payloadForRefreshToken?.refreshToken)
+      payload["refreshToken"] = payloadForRefreshToken.refreshToken;
+    return payload;
   };
 
   // ***********  set logged in user jwt token  *********//
   const setToken = async (token: JWTTokenInterface) => {
-    updateJWTToken(token);
+    const datetime = Date.now() + 1000 * 60 * 60 * 24;
+    const expires = new Date(datetime);
+    const encodedAccessToken = await JWTEncryptMethod({
+      accessToken: token.accessToken,
+      expires,
+    });
+    const encodedRefreshToken = await JWTEncryptMethod({
+      refreshToken: token.refreshToken,
+      expires,
+    });
+    setCookie({
+      cname: "gurukul-access-token",
+      cvalue: encodedAccessToken,
+      noOfDays: 1,
+    });
+    setCookie({
+      cname: "gurukul-refresh-token",
+      cvalue: encodedRefreshToken,
+      noOfDays: 1,
+    });
   };
 
   const restClient =

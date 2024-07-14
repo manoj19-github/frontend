@@ -3,7 +3,7 @@ import * as Zod from "zod";
 import { UserRoleTypes } from "@/_models/master.models";
 import { useLoginDetails } from "@/_store/useLoginDetails";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { loginFormSchema } from "@/_formSchema/loginForm.formSchema";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -13,7 +13,9 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FcGoogle } from "react-icons/fc";
 import { redirect, useRouter } from "next/navigation";
-import useLoginAction from "@/_actions/useLoginAction";
+import { loginAction } from "@/serverActions/loginAction.serverAction";
+import { signIn } from "next-auth/react";
+
 type LoginFormProps = {
   userRoles: Array<UserRoleTypes>;
   userType: "STUDENT" | "TEACHER" | "ADMIN";
@@ -23,6 +25,7 @@ const LoginForm: FC<LoginFormProps> = ({
   userType = "STUDENT",
 }): JSX.Element => {
   const [formLoading, setFormLoading] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
   const currUserRole = userRoles.find(
     (self) => self.role_name.toLowerCase() === userType.toLowerCase()
   );
@@ -31,7 +34,6 @@ const LoginForm: FC<LoginFormProps> = ({
   console.log("user: ", user);
   console.log("token: ", token);
 
-  const loginAction = useLoginAction();
   const router = useRouter();
   const loginForm = useForm<Zod.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -48,12 +50,13 @@ const LoginForm: FC<LoginFormProps> = ({
     try {
       if (formLoading) return;
       setFormLoading(true);
-      const response = await loginAction(formState);
-      if (response.data.token) updateJWTToken(response.data.token);
-      if (response.data.user) updateLoginUser(response.data.user);
+      await signIn("credentials", { ...formState, callbackUrl: "/" });
+
+      // if (response.data.token) updateJWTToken(response.data.token);
+      // if (response.data.user) updateLoginUser(response.data.user);
       toast.success("Logged in successfully");
-      router.refresh();
-      loginForm.reset();
+      // router.refresh();
+      // loginForm.reset();
     } catch (error: any) {
       console.log("error: ", error);
       toast.error(error.message);
