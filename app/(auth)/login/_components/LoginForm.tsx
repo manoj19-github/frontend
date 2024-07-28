@@ -129,6 +129,7 @@ const LoginForm: FC<LoginFormProps> = ({
         <p className="text-center text-zinc-600 my-2">OR</p>
         <button
           disabled={formLoading}
+          onClick={() => signIn("google")}
           className="w-full py-2 rounded-md border hover:border-[#553CDE] transition-all ease-in duration-150  text-zinc-600 text-xl flex items-center justify-center gap-x-4 "
         >
           <p>Login with Google</p>

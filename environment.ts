@@ -153,6 +153,7 @@ export const urlsConfig = {
     getAllUserRole: `/master/get-all-role`,
     userLogin: `/user/login`,
     checkToken: `/user/checktoken`,
+    userLoginByGoogle: `/user/login-google`,
   },
 };
 
